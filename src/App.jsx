@@ -5,7 +5,7 @@ import { useMediaQuery } from 'beautiful-react-hooks';
 // Para importar diferentes tipos de gráfico basta interpolar o nome do gráfico a ser utilizado
 // os gráficos existentes se encontram em https://www.chartjs.org/docs/latest/charts/
 // Neste exemplo vou utlizar o Line pois é o de uso mais recorrente em projetos. 
-import { dataName, eraseFirstData, updateData, reverseData, addManualData, eraseLastData } from './Functions/updateData'
+import { dataName, eraseFirstData, updateData, reverseData, addManualData, eraseLastData } from './Functions/graphFunctions'
 import 'chartjs-plugin-annotation';
 
 // Como o chartJs não é uma biblioteca originalmente feita para o React atual, vamos fazer alguns

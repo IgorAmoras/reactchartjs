@@ -15,6 +15,7 @@
 //Essa função adiciona um valor, passado pela chamada da função ao gráfico
 // Sempre que se for referenciar o gráfico é necessário verificar se sua referência já foi instanciada
 // no componente principal, isso é, na página, caso contrário ocorrerá um erro. 
+
 export function updateData(mainGraph, data, line) {
     if(!(mainGraph?.current?.chartInstance)) return
         // Checa a instanciação do gráfico
