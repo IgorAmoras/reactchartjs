@@ -44,7 +44,7 @@ export function dataName(mainGraph, label){
         mainGraph.current.chartInstance.update();
   }
 
-//A lógica por trás das próximas funções é a mesma, acessasse os componentes a serem alterados e é usado
+//A lógica por trás das próximas funções é a mesma, é acessado os componentes a serem alterados e é usado
 // as próprias funções Javascript para brincar com o gráfico
 
 export function eraseFirstData(mainGraph){

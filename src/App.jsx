@@ -7,6 +7,9 @@ import { useMediaQuery } from 'beautiful-react-hooks';
 // Neste exemplo vou utlizar o Line pois é o de uso mais recorrente em projetos. 
 import { dataName, eraseFirstData, updateData, reverseData, addManualData, eraseLastData } from './Functions/graphFunctions'
 import 'chartjs-plugin-annotation';
+import './styles/App.css';
+require('typeface-quicksand');
+
 
 // Como o chartJs não é uma biblioteca originalmente feita para o React atual, vamos fazer alguns
 // componentes que facilitem sua utilização quando o projeto é escalonado.
@@ -78,20 +81,12 @@ const INITALLDATA = {
       alignItems: 'center'
     })
   }
-  const buttonsStyles = {
-    container: elem =>({
-      borderRadius: '10px', 
-      color: 'whitesmoke', 
-      backgroundColor: 'brown', 
-      marginTop: '10px', 
-      padding: '10px 10px 10px 10px',
-    }),
-    outainer: elem =>({
-      borderRadius: '10px', 
-      color: 'whitesmoke', 
-      backgroundColor: 'red', 
-      marginTop: '10px', 
-      padding: '10px 10px 10px 10px',
+  
+  const image = {
+    container: isWide => ({
+      paddingTop: isWide ? '15vh' : '5vh',
+      paddingLeft: isWide ? '36vw' : '30vw',
+      width: isWide ? '700px' : ''
     })
   }
 
@@ -105,8 +100,8 @@ const MainGraph = () => {
   const isWideBased = useMediaQuery('(min-width: 1920px)'); // chamada para mediaQuery inline baseado em React Hook
 
   return (
-    <div style = {{position: 'absolute',display: 'flex', top: 0, right: 0, left: 0, bottom: 0, backgroundColor: 'black'}}>
-
+    <div className = "container">
+      <img src = "logocpe.png" alt ="Logo CPE" style = {image.container(isWideBased)}></img>
       <div style={styles.container(isWideBased)}>      
 
         <Line // Chamamos a componente do gráfico a ser renderizado na tela por meio da sua componente importada, no nosso
@@ -117,20 +112,23 @@ const MainGraph = () => {
           data={INITALLDATA} // Aqui deve ser inserida a variável definida anteriormente, com os dados as serem utilizados.
           ref={mainGraph} // Criar a referência pro gráfico dentro da variável mainGraph
           options={{ 
-            annotation:{
-              annotations:[
+            annotation:{ // É a linha vercial que aparece no gráfico quando clicamos em "adicionar anotação"
+              annotations:[ 
                   showAnnotation &&{
-                  drawTime: "afterDatasetsDraw",
-                  type: "line",
-                  mode: "vertical",
-                  scaleID: "x-axis-0",
-                  value: 'abril',
-                  borderWidth: 2,
-                  borderColor: "silver",
-                  label: {
-                    content: "Annotation",
+                  drawTime: "afterDatasetsDraw", // Instância o momento da criação da linha, deixe por padrão esse, pois 
+                                                 // está associado aos dados do gráfico
+                  type: 'line', //Pode ser line ou box, se for box ele coloca uma caixa ao redor do gráfico
+                  mode: "vertical", // Pode ser vertical ou horizontal
+                  scaleID: "x-axis-0", // Valor definido por padrão para aparecer no gráfico
+                  value: 'abril', // Esse é o valor do eixo X(ou y), associado com a linha 
+                  borderWidth: 1, // A espessura da linha
+                  borderColor: "silver", // Cor da linha
+                  label: { // Define as componentes visuais
+                    content: "Marcação",  // Define o que será escrito no gráfico
+                    fontFamily: "Quicksand", 
+                    fontColor: "white",
                     enabled: true,
-                    position: "bottom"
+                    position: "bottom" // Onde ficará escrito a anotação
                   }
                 }
               ]
@@ -140,6 +138,8 @@ const MainGraph = () => {
               position: 'bottom', // Tente mudar pra 'left', 'right' ou 'top'
               labels: {
                 padding: 20,
+                fontFamily: 'Quicksand',
+                fontColor: 'white',
                 fontSize: 16,
               },
             },
@@ -153,16 +153,16 @@ const MainGraph = () => {
                                         // mas sim, alterem o tamanho da sua DIV pai, facilitando, e muito a sua vida.
 
             title: { //Define o título do gráfico e como ele irá se comportar
-              text: 'Gráfico da CPE', 
+              text: 'Nossa empresa', 
+              fontFamily: 'Quicksand',
               fontSize: 30,
-              fontColor: 'rgb(215,215,215)',
-              fontFamily: 'Times New Roman',
+              fontColor: 'smokewhite',
               display: true //Essa componente serve para controlar se o título irá aparecer ou não
             },
 
             elements: {
               line: {
-                  tension: 0 // Tension é a "suavização" do gráfico, por default é 0.4, onde o gráfico
+                  tension: 0.4 // Tension é a "suavização" do gráfico, por default é 0.4, onde o gráfico
                             // é mais curvado ao chegar perto do pontos, 0 é um gráfico reto.
                             // É possivel definir a curva em cada dataset por meio da variável "lineTension"
               }
@@ -214,31 +214,31 @@ const MainGraph = () => {
         />
         
         {/* Aqui embaixo são apenas instanciados botões com as funções definidas dentro da pasta functions, para entender, vá para aquele arquivo*/}
-        <div style = {{ display: 'flex', width: '80vw', justifyContent: 'space-around', padding: '10px' }}>
-          <button style={buttonsStyles.container()} onClick = {() => {updateData(mainGraph, Math.random()*20, 0); 
+        <div style = {{ display: 'flex', width: '90vw', justifyContent: 'space-around', padding: '10px' }}>
+          <button className = "button-styles" onClick = {() => {updateData(mainGraph, Math.random()*20, 0); 
                                                                      updateData(mainGraph, Math.random()*20, 1);
                                                                      updateData(mainGraph, Math.random()*80, 2);
                                                                      dataName(mainGraph, 'Random Number'); }}>
             Adicionar dados aleatórios
           </button>
 
-          <button style={buttonsStyles.container()} onClick ={() => eraseLastData(mainGraph)}>
+          <button className = "button-styles" onClick ={() => eraseLastData(mainGraph)}>
             Retirar ultimo valor
           </button>
             
-          <button style={buttonsStyles.container()} onClick ={() => eraseFirstData(mainGraph)}>
+          <button className = "button-styles" onClick ={() => eraseFirstData(mainGraph)}>
             Retirar primero valor
           </button>
           
-          <button style={buttonsStyles.container()} onClick ={() =>reverseData(mainGraph)}>
+          <button className = "button-styles" onClick ={() =>reverseData(mainGraph)}>
             Inverter dados
           </button>
 
-          <button style={buttonsStyles.container()} onClick ={() =>addManualData(mainGraph)}>
+          <button className = "button-styles" onClick ={() =>addManualData(mainGraph)}>
             Adicionar dados manualmente
           </button>
 
-          <button style={buttonsStyles.container()} onClick ={() =>setShowAnnotation(!showAnnotation)}>
+          <button className = "button-styles" onClick ={() =>setShowAnnotation(!showAnnotation)}>
             Adicionar anotação
           </button>
 
