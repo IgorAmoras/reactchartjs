@@ -95,7 +95,9 @@ const MainGraph = () => {
                               // alterar seus dados por meio de um "push" iremos criar uma refêrencia para ele e chama-la 
                               // na definição do gráfico. É necessário importar o useRef. Ele é utilizado para evitar
                               // a re-renderização do gráfico quando alteramos os dados.    
-
+  setTimeout(() => {
+    console.log(mainGraph.current); // Abra o console, lá vai ter o componente da referência 
+  }, 1000)
   const [showAnnotation, setShowAnnotation] = useState(false) 
   const isWideBased = useMediaQuery('(min-width: 1920px)'); // chamada para mediaQuery inline baseado em React Hook
 
