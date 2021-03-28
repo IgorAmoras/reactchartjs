@@ -169,9 +169,8 @@ const MainGraph = () => {
           },
             scales: { // Aqui é definido o valor das escalas nos eixos x e y, assim como sua abrangência
                       // valor mínimo e máximo
-
               yAxes: [{ // Intuitivamente, neste objeto são definidos os parametros do eixo y.
-                    gridLines: { display: true, color: 'rgba(215,215,215,0.3)' },
+                    gridLines: { display: true, color: 'rgba(215,215,215,0.3)' }, // Essa componente mostra as linhas de grade no gráfico.
                     id: 'left', // Aqui é defindo o id do eixo, ele parametriza os dados que tiverem 
                                 // a componente yAxesId como sendo 'left'
 
@@ -181,6 +180,7 @@ const MainGraph = () => {
                       min: 0,
                       max: 20,
                       stepSize: 2,
+                      fontColor: 'white'
                     } 
                     },
                     {
@@ -191,6 +191,7 @@ const MainGraph = () => {
                         max: 50,
                         min: 0,
                         stepSize: 5,
+                        fontColor:'white',
                       }
                     }
                 ],
@@ -206,6 +207,7 @@ const MainGraph = () => {
 
                     beginAtZero: true, // Apenas define se o valor começa em 0 ou não, se for true adiciona 
                                       // o valor 0 ao eixo
+                    fontColor: 'white'
                   },
                 },
               ],
