@@ -45,7 +45,7 @@ export function dataName(mainGraph, label){
         mainGraph.current.chartInstance.update();
   }
 
-//A lógica por trás das próximas funções é a mesma, é acessado os componentes a serem alterados e é usado
+// A lógica por trás das próximas funções é a mesma, é acessado os componentes a serem alterados e é usado
 // as próprias funções Javascript para brincar com o gráfico
 
 export function eraseFirstData(mainGraph){
@@ -86,10 +86,9 @@ export function addManualData(mainGraph){
         mainGraph.current.chartInstance.update();
 }
 
-export function realTimeData(mainGraph, boolean){
-    if(!(mainGraph?.current?.chartInstance && boolean)) return 
+export function realTimeData(mainGraph){
+    if(!(mainGraph?.current?.chartInstance)) return 
         setInterval(() => {
-            console.log(boolean)
             mainGraph.current.chartInstance.data.labels.push('Real Time Random Data');
             mainGraph.current.chartInstance.data.datasets.forEach(elem => {
                 elem.data.push(Math.random()*10);

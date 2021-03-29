@@ -22,14 +22,13 @@ require('typeface-quicksand');
 // Esse componente seguinte é onde será gerenciado os dados do gráfico, ele incialmente é estático,
 // pois contém as predefinções a serem usadas no projeto, mas pode ser alterado em tempo real.
 // (Ele é montado deste jeito pois é como o ChartJs é contruído)
-
 const INITALLDATA = {
   type: 'line', // type é como o dado será interpretado, está ligado a qual gráfico você vai utilizar,
                 // caso você use outro componete, basta entrar na documentação e ver qual tipo ele usa.
 
   labels:['Junho','abril', 'maio', 'março'], // Labels é a o que aparecerá na componente x do gráfico, na área
-                // inferior. Ela utiliza um vetor para ler seus valores, caso queira que eles se atualizem
-                // basta criar uma variável do tipo vetor e inseri-la aqui. 
+                                             // inferior. Ela utiliza um vetor para ler seus valores, caso queira que eles se atualizem
+                                             // basta criar uma variável do tipo vetor e inseri-la aqui. 
   datasets: [ 
     // datasets é um vetor de objetos, dentro de cada objeto você pode definir como o dado será disposto
     // alterando componentes mais específicas para cada linha do gráfico 
@@ -45,6 +44,7 @@ const INITALLDATA = {
                                   // formam um par (x,y) onde => (labels, data). Os dados se organizam por
                                   // meio da posição no vetor, isso é, o primeiro valor em labels será 
                                   // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
 
       yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
                       // esquerda ou direita do gráfico
@@ -198,7 +198,7 @@ const MainGraph = () => {
                                   // 'right' serão organizados com base nessass definições.
                       position:'right',
                       ticks:{
-                        max: 50,
+                        max: 200,
                         min: 0,
                         stepSize: 5,
                         fontColor:'white',
