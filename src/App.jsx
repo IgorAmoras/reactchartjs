@@ -40,7 +40,7 @@ const INITALLDATA = {
                           // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
                           // faz com que os dados sumam ou apareçam do gráfico.
 
-      data: [10, 12, 15, 13], // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+      data: [10, 12, 15, 13],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
                                   // componente funciona junto com a componente 'labels', pois juntas elas 
                                   // formam um par (x,y) onde => (labels, data). Os dados se organizam por
                                   // meio da posição no vetor, isso é, o primeiro valor em labels será 
@@ -107,7 +107,6 @@ const MainGraph = () => {
   }, 1000)
 
   const [showAnnotation, setShowAnnotation] = useState(false);
-  const [startData, setStartDate] = useState(false);
   const isWideBased = useMediaQuery('(min-width: 1920px)'); // chamada para mediaQuery inline baseado em React Hook
 
   return (
@@ -254,8 +253,7 @@ const MainGraph = () => {
           <button className = "button-styles" onClick ={() =>setShowAnnotation(!showAnnotation)}>
             Adicionar anotação
           </button>
-          <button className = "button-styles" onClick ={() => {realTimeData(mainGraph, !startData); 
-                                                               setStartDate(!startData)}}>
+          <button className = "button-styles" onClick ={() => realTimeData(mainGraph)}>
             Dados em tempo real
           </button>
         </div>
