@@ -16,11 +16,12 @@
 // Sempre que se for referenciar o gráfico é necessário verificar se sua referência já foi instanciada
 // no componente principal, isso é, na página, caso contrário ocorrerá um erro. 
 
-export function updateData(mainGraph, data, line) {
+export function addRandomData(mainGraph, line) {
     if(!(mainGraph?.current?.chartInstance)) return
         // Checa a instanciação do gráfico
         // chartInstance é onde está, efetivamente, a chamada para o gráfico, dentro deste pode se ter acesso 
         // aos dados já criados, alterando seus valores.
+        const data = Math.random()*10;
         mainGraph.current.chartInstance.data.datasets[line].data.push(data);// Datasets é onde estão salvos os dados
                                                                             // do eixo y, para acessar e alterar seu
                                                                             // valor é preciso usar a posição do vetor 
@@ -85,3 +86,14 @@ export function addManualData(mainGraph){
         mainGraph.current.chartInstance.update();
 }
 
+export function realTimeData(mainGraph, boolean){
+    if(!(mainGraph?.current?.chartInstance && boolean)) return 
+        setInterval(() => {
+            console.log(boolean)
+            mainGraph.current.chartInstance.data.labels.push('Real Time Random Data');
+            mainGraph.current.chartInstance.data.datasets.forEach(elem => {
+                elem.data.push(Math.random()*10);
+            });
+            mainGraph.current.chartInstance.update();
+        }, 200)
+}

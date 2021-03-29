@@ -5,7 +5,13 @@ import { useMediaQuery } from 'beautiful-react-hooks';
 // Para importar diferentes tipos de gráfico basta interpolar o nome do gráfico a ser utilizado
 // os gráficos existentes se encontram em https://www.chartjs.org/docs/latest/charts/
 // Neste exemplo vou utlizar o Line pois é o de uso mais recorrente em projetos. 
-import { dataName, eraseFirstData, updateData, reverseData, addManualData, eraseLastData } from './Functions/graphFunctions'
+import { dataName, 
+         eraseFirstData, 
+         reverseData, 
+         addManualData, 
+         eraseLastData, 
+         realTimeData,
+         addRandomData} from './Functions/graphFunctions'
 import 'chartjs-plugin-annotation';
 import './styles/App.css';
 require('typeface-quicksand');
@@ -44,8 +50,9 @@ const INITALLDATA = {
                       // esquerda ou direita do gráfico
       borderColor: 'blue', // Define a cor da linha
       borderWidth: 3, // Define a espessura da linha
-      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
-                      // nenhum ponto.
+      pointRadius: 3, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
     },
     // Esse processo pode ser repetido para quantos dados seja necessário
     {
@@ -54,7 +61,7 @@ const INITALLDATA = {
       data:[10, 5, 15, 10],
       borderColor: 'red',
       borderWidth: 3,
-      pointRadius: 1,
+      pointRadius: 3,
     },
     {
       label: 'Horas trabalhadas',
@@ -63,7 +70,7 @@ const INITALLDATA = {
       data:[15, 18, 13, 5],
       borderColor: 'green',
       borderWidth: 3,
-      pointRadius: 0,
+      pointRadius: 3,
     },
   ]
   }
@@ -98,7 +105,9 @@ const MainGraph = () => {
   setTimeout(() => {
     console.log(mainGraph.current); // Abra o console, lá vai ter o componente da referência 
   }, 1000)
-  const [showAnnotation, setShowAnnotation] = useState(false) 
+
+  const [showAnnotation, setShowAnnotation] = useState(false);
+  const [startData, setStartDate] = useState(false);
   const isWideBased = useMediaQuery('(min-width: 1920px)'); // chamada para mediaQuery inline baseado em React Hook
 
   return (
@@ -164,7 +173,7 @@ const MainGraph = () => {
 
             elements: {
               line: {
-                  tension: 0.4 // Tension é a "suavização" do gráfico, por default é 0.4, onde o gráfico
+                  tension: 0// Tension é a "suavização" do gráfico, por default é 0.4, onde o gráfico
                             // é mais curvado ao chegar perto do pontos, 0 é um gráfico reto.
                             // É possivel definir a curva em cada dataset por meio da variável "lineTension"
               }
@@ -218,11 +227,11 @@ const MainGraph = () => {
         />
         
         {/* Aqui embaixo são apenas instanciados botões com as funções definidas dentro da pasta functions, para entender, vá para aquele arquivo*/}
-        <div style = {{ display: 'flex', width: '90vw', justifyContent: 'space-around', padding: '10px' }}>
-          <button className = "button-styles" onClick = {() => {updateData(mainGraph, Math.random()*20, 0); 
-                                                                     updateData(mainGraph, Math.random()*20, 1);
-                                                                     updateData(mainGraph, Math.random()*80, 2);
-                                                                     dataName(mainGraph, 'Random Number'); }}>
+        <div style = {{ display: 'flex', width: '90vw', justifyContent: 'space-around', padding: '5px' }}>
+          <button className = "button-styles" onClick = {() => {addRandomData(mainGraph, 0); 
+                                                                addRandomData(mainGraph, 1);
+                                                                addRandomData(mainGraph, 2);
+                                                                dataName(mainGraph, 'Random Number'); }}>
             Adicionar dados aleatórios
           </button>
 
@@ -245,7 +254,10 @@ const MainGraph = () => {
           <button className = "button-styles" onClick ={() =>setShowAnnotation(!showAnnotation)}>
             Adicionar anotação
           </button>
-
+          <button className = "button-styles" onClick ={() => {realTimeData(mainGraph, !startData); 
+                                                               setStartDate(!startData)}}>
+            Dados em tempo real
+          </button>
         </div>
       </div>
     </div>
