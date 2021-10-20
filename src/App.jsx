@@ -5,13 +5,9 @@ import { useMediaQuery } from 'beautiful-react-hooks';
 // Para importar diferentes tipos de gráfico basta interpolar o nome do gráfico a ser utilizado
 // os gráficos existentes se encontram em https://www.chartjs.org/docs/latest/charts/
 // Neste exemplo vou utlizar o Line pois é o de uso mais recorrente em projetos. 
-import { dataName, 
-         eraseFirstData, 
-         reverseData, 
+import { 
          addManualData, 
-         eraseLastData, 
-         realTimeData,
-         addRandomData} from './Functions/graphFunctions'
+         eraseLastData } from './Functions/graphFunctions'
 import 'chartjs-plugin-annotation';
 import './styles/App.css';
 require('typeface-quicksand');
@@ -26,7 +22,7 @@ const INITALLDATA = {
   type: 'line', // type é como o dado será interpretado, está ligado a qual gráfico você vai utilizar,
                 // caso você use outro componete, basta entrar na documentação e ver qual tipo ele usa.
 
-  labels:['Junho','abril', 'maio', 'março'], // Labels é a o que aparecerá na componente x do gráfico, na área
+  labels:['15/10', '19/10' ,'21/10','25/10','27/10','29/10'], // Labels é a o que aparecerá na componente x do gráfico, na área
                                              // inferior. Ela utiliza um vetor para ler seus valores, caso queira que eles se atualizem
                                              // basta criar uma variável do tipo vetor e inseri-la aqui. 
   datasets: [ 
@@ -35,11 +31,11 @@ const INITALLDATA = {
     {
       fill: true, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
       opacity: '10',
-      label: 'Produtividade na CPE', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+      label: 'Pontos da sprint', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
                           // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
                           // faz com que os dados sumam ou apareçam do gráfico.
 
-      data: [10, 12, 15, 13],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+      data: [92, 61],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
                                   // componente funciona junto com a componente 'labels', pois juntas elas 
                                   // formam um par (x,y) onde => (labels, data). Os dados se organizam por
                                   // meio da posição no vetor, isso é, o primeiro valor em labels será 
@@ -49,28 +45,142 @@ const INITALLDATA = {
       yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
                       // esquerda ou direita do gráfico
       borderColor: 'blue', // Define a cor da linha
-      borderWidth: 3, // Define a espessura da linha
+      borderWidth: 4, // Define a espessura da linha
       pointRadius: 3, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
                       // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
                       // especifico desse ponto. 
     },
-    // Esse processo pode ser repetido para quantos dados seja necessário
     {
-      label: 'Projetos de sistemas web',
-      yAxisID: 'left',
-      data:[10, 5, 15, 10],
-      borderColor: 'red',
-      borderWidth: 3,
-      pointRadius: 3,
+      fill: true, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
+      opacity: '20',
+      label: 'Precisão necessária da sprint', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+                          // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
+                          // faz com que os dados sumam ou apareçam do gráfico.
+
+      data: [19, 19, 19, 19, 19, 19, 19],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+                                  // componente funciona junto com a componente 'labels', pois juntas elas 
+                                  // formam um par (x,y) onde => (labels, data). Os dados se organizam por
+                                  // meio da posição no vetor, isso é, o primeiro valor em labels será 
+                                  // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
+
+      yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
+                      // esquerda ou direita do gráfico
+      borderColor: 'red', // Define a cor da linha
+      borderWidth: 3, // Define a espessura da linha
+      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
     },
     {
-      label: 'Horas trabalhadas',
-      yAxisID: 'right', // Diferente dos dados anteriores, esse utilizará a escala definida na parte direita do gráfico
-                        // Isso será feito na chamada do gráfico
-      data:[15, 18, 13, 5],
-      borderColor: 'green',
-      borderWidth: 3,
-      pointRadius: 3,
+      fill: false, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
+      
+      label: 'Pontos site Janaína', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+                          // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
+                          // faz com que os dados sumam ou apareçam do gráfico.
+
+      data: [32, 18],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+                                  // componente funciona junto com a componente 'labels', pois juntas elas 
+                                  // formam um par (x,y) onde => (labels, data). Os dados se organizam por
+                                  // meio da posição no vetor, isso é, o primeiro valor em labels será 
+                                  // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
+
+      yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
+                      // esquerda ou direita do gráfico
+      borderColor: 'green', // Define a cor da linha
+      borderWidth: 1, // Define a espessura da linha
+      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
+    },
+    {
+      fill: false, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
+      opacity: '20',
+      label: 'Pontos site Aline', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+                          // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
+                          // faz com que os dados sumam ou apareçam do gráfico.
+
+      data: [33, 16],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+                                  // componente funciona junto com a componente 'labels', pois juntas elas 
+                                  // formam um par (x,y) onde => (labels, data). Os dados se organizam por
+                                  // meio da posição no vetor, isso é, o primeiro valor em labels será 
+                                  // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
+
+      yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
+                      // esquerda ou direita do gráfico
+      borderColor: 'yellow', // Define a cor da linha
+      borderWidth: 1, // Define a espessura da linha
+      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
+    },
+    {
+      fill: false, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
+      opacity: '20',
+      label: 'Pontos site Débora', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+                          // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
+                          // faz com que os dados sumam ou apareçam do gráfico.
+
+      data: [13, 13],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+                                  // componente funciona junto com a componente 'labels', pois juntas elas 
+                                  // formam um par (x,y) onde => (labels, data). Os dados se organizam por
+                                  // meio da posição no vetor, isso é, o primeiro valor em labels será 
+                                  // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
+
+      yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
+                      // esquerda ou direita do gráfico
+      borderColor: 'white', // Define a cor da linha
+      borderWidth: 1, // Define a espessura da linha
+      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
+    },
+    {
+      fill: true, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
+      opacity: '20',
+      label: 'Projeção da sprint', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+                          // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
+                          // faz com que os dados sumam ou apareçam do gráfico.
+
+      data: [92, 74, 56, 38, 20, 0],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+                                  // componente funciona junto com a componente 'labels', pois juntas elas 
+                                  // formam um par (x,y) onde => (labels, data). Os dados se organizam por
+                                  // meio da posição no vetor, isso é, o primeiro valor em labels será 
+                                  // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
+
+      yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
+                      // esquerda ou direita do gráfico
+      borderColor: 'gray', // Define a cor da linha
+      borderWidth: 1, // Define a espessura da linha
+      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
+    },
+    {
+      fill: false, // É o preenchimento do gráfico, se for true a área sob o gráfico é preenchida.
+      opacity: '20',
+      label: 'Projetado', // label é o título desse conjunto de dados, ele irá aperecer junto do gráfico
+                          // para indicar quem é quem. Esse componente, ao ser clicado, dentro da aplicação,
+                          // faz com que os dados sumam ou apareçam do gráfico.
+
+      data: [14, 14],     // Aqui é onde são definidos os dados de cada componente do eixo y. Essa 
+                                  // componente funciona junto com a componente 'labels', pois juntas elas 
+                                  // formam um par (x,y) onde => (labels, data). Os dados se organizam por
+                                  // meio da posição no vetor, isso é, o primeiro valor em labels será 
+                                  // associado ao primeiro valor em data.
+                                  //Pode ser um vetor, ou valor vazio também, não precisa ser um valor estático.
+
+      yAxisID:'left', // Essa componente define um id para que você possa escolher se os dados ficaram na parte 
+                      // esquerda ou direita do gráfico
+      borderColor: 'blue', // Define a cor da linha
+      borderWidth: 2, // Define a espessura da linha
+      pointRadius: 0, // Define o tamanho dos pontos onde é formado um par (x,y), 0 significa que não será mostrado
+                      // nenhum ponto. Preferencialmente não deixar no valor 0 pois nele não é possivel ver o valor
+                      // especifico desse ponto. 
     },
   ]
   }
@@ -79,8 +189,8 @@ const INITALLDATA = {
 
   const styles = {
     container: isWideBased => ({
-      width: isWideBased ? '60vw': '70vw', 
-      paddingLeft: isWideBased ? '20vw': '15vw', 
+      width: isWideBased ? '60vw': '80vw', 
+      paddingLeft: isWideBased ? '20vw': '10vw', 
       paddingTop: '10vh',
       position: 'relative', 
       display:'flex', 
@@ -91,9 +201,9 @@ const INITALLDATA = {
   
   const image = {
     container: isWide => ({
-      paddingTop: isWide ? '15vh' : '5vh',
-      paddingLeft: isWide ? '36vw' : '30vw',
-      width: isWide ? '700px' : ''
+      paddingTop: isWide ? '40vh' : '330px',
+      paddingLeft: isWide ? '47.8vw' : '720px',
+      width: isWide ? '100px' : '100px'
     })
   }
 
@@ -102,16 +212,48 @@ const MainGraph = () => {
                               // alterar seus dados por meio de um "push" iremos criar uma refêrencia para ele e chama-la 
                               // na definição do gráfico. É necessário importar o useRef. Ele é utilizado para evitar
                               // a re-renderização do gráfico quando alteramos os dados.    
-  setTimeout(() => {
-    console.log(mainGraph.current); // Abra o console, lá vai ter o componente da referência 
-  }, 1000)
 
   const [showAnnotation, setShowAnnotation] = useState(false);
   const isWideBased = useMediaQuery('(min-width: 1920px)'); // chamada para mediaQuery inline baseado em React Hook
 
+  const splitDates = (init, fini) => {
+    const [initDay, initMonth] = init.split('/').map(num => parseInt(num))
+    const [finiDay, finiMonth] = fini.split('/').map(num => parseInt(num))
+    return {
+      initDay,
+      initMonth,
+      finiDay,
+      finiMonth,
+    }
+  }
+  const isSameMonthSprint = (init, fini) =>  init === fini ? true : false
+
+  const is31DayMonth = (day) => {
+    return day%2 === 0 ? false : true
+  }
+  const createDateArray = (init, fini) => {
+    const parsedTime = []
+    const {initDay, initMonth, finiDay, finiMonth} = splitDates(init, fini)
+    let iterator = initDay;
+    if(isSameMonthSprint(initMonth, finiMonth)){
+      while(iterator !== finiDay){
+        parsedTime.push(`${iterator}/${initMonth}`)
+        iterator+=1
+      }
+      console.log(parsedTime)
+    }
+  }
+
+  const handleSprintTime = () => {
+    var init = prompt('Digite o inicio da sprint, como sendo "xx/xx"')
+    var fini = prompt('Digite o final da sprint, como sendo "xx/xx"')
+    createDateArray(init, fini)
+  }
+
+
   return (
     <div className = "container">
-      <img src = "logocpe.png" alt ="Logo CPE" style = {image.container(isWideBased)}></img>
+      <img src = "YellowLogo.png" alt ="Logo CPE" style = {image.container(isWideBased)}></img>
       <div style={styles.container(isWideBased)}>      
 
         <Line // Chamamos a componente do gráfico a ser renderizado na tela por meio da sua componente importada, no nosso
@@ -122,26 +264,20 @@ const MainGraph = () => {
           data={INITALLDATA} // Aqui deve ser inserida a variável definida anteriormente, com os dados as serem utilizados.
           ref={mainGraph} // Criar a referência pro gráfico dentro da variável mainGraph
           options={{ 
-            annotation:{ // É a linha vercial que aparece no gráfico quando clicamos em "adicionar anotação"
-              annotations:[ 
-                  showAnnotation &&{
-                  drawTime: "afterDatasetsDraw", // Instância o momento da criação da linha, deixe por padrão esse, pois 
-                                                 // está associado aos dados do gráfico
-                  type: 'line', //Pode ser line ou box, se for box ele coloca uma caixa ao redor do gráfico
-                  mode: "vertical", // Pode ser vertical ou horizontal
-                  scaleID: "x-axis-0", // Valor definido por padrão para aparecer no gráfico
-                  value: 'abril', // Esse é o valor do eixo X(ou y), associado com a linha 
-                  borderWidth: 1, // A espessura da linha
-                  borderColor: "silver", // Cor da linha
-                  label: { // Define as componentes visuais
-                    content: "Marcação",  // Define o que será escrito no gráfico
-                    fontFamily: "Quicksand", 
-                    fontColor: "white",
-                    enabled: true,
-                    position: "bottom" // Onde ficará escrito a anotação
-                  }
+            annotation: {
+              annotations: [{
+                type: 'line',
+                mode: 'vertical',
+                scaleID: 'y-axis-0',
+                value: 20,
+                borderWidth: 2,
+                label: {
+                  enabled: true,
+                  content: 'Precisão da sprint necessária!',
+                  position: 'bottom'
+                  
                 }
-              ]
+              }]
             },
             legend: { // A componente legend define onde as legendas do gráfico ficarão, pode ser alterado também o 
                       // espaçamento, tamanho da fonte e tipo
@@ -150,7 +286,7 @@ const MainGraph = () => {
                 padding: 20,
                 fontFamily: 'Quicksand',
                 fontColor: 'white',
-                fontSize: 16,
+                fontSize: 20,
               },
             },
             responsive: true,
@@ -163,7 +299,7 @@ const MainGraph = () => {
                                         // mas sim, alterem o tamanho da sua DIV pai, facilitando, e muito a sua vida.
 
             title: { //Define o título do gráfico e como ele irá se comportar
-              text: 'Nossa empresa', 
+              text: 'Sprint 18/10 - 29/10 Psicóticos', 
               fontFamily: 'Quicksand',
               fontSize: 30,
               fontColor: 'smokewhite',
@@ -172,7 +308,7 @@ const MainGraph = () => {
 
             elements: {
               line: {
-                  tension: 0// Tension é a "suavização" do gráfico, por default é 0.4, onde o gráfico
+                  tension: 0.2// Tension é a "suavização" do gráfico, por default é 0.4, onde o gráfico
                             // é mais curvado ao chegar perto do pontos, 0 é um gráfico reto.
                             // É possivel definir a curva em cada dataset por meio da variável "lineTension"
               }
@@ -188,22 +324,11 @@ const MainGraph = () => {
                     ticks: {// Na componente Ticks é definido os valores de máximo e mínimo da escala, assim 
                             // como qual sua taxa de crescimento, na componente stepSize.
                       min: 0,
-                      max: 20,
-                      stepSize: 2,
-                      fontColor: 'white'
+                      stepSize: 5,
+                      fontColor: 'white',
                     } 
                     },
-                    {
-                      id:'right', // Seguindo a mesma lógica da componente anterior, os dados com o id
-                                  // 'right' serão organizados com base nessass definições.
-                      position:'right',
-                      ticks:{
-                        max: 200,
-                        min: 0,
-                        stepSize: 5,
-                        fontColor:'white',
-                      }
-                    }
+                   
                 ],
               xAxes: [ // Aqui ficam salvam as definições do eixo x
                 {
@@ -227,23 +352,9 @@ const MainGraph = () => {
         
         {/* Aqui embaixo são apenas instanciados botões com as funções definidas dentro da pasta functions, para entender, vá para aquele arquivo*/}
         <div style = {{ display: 'flex', width: '90vw', justifyContent: 'space-around', padding: '5px' }}>
-          <button className = "button-styles" onClick = {() => {addRandomData(mainGraph, 0); 
-                                                                addRandomData(mainGraph, 1);
-                                                                addRandomData(mainGraph, 2);
-                                                                dataName(mainGraph, 'Random Number'); }}>
-            Adicionar dados aleatórios
-          </button>
 
           <button className = "button-styles" onClick ={() => eraseLastData(mainGraph)}>
             Retirar ultimo valor
-          </button>
-            
-          <button className = "button-styles" onClick ={() => eraseFirstData(mainGraph)}>
-            Retirar primero valor
-          </button>
-          
-          <button className = "button-styles" onClick ={() =>reverseData(mainGraph)}>
-            Inverter dados
           </button>
 
           <button className = "button-styles" onClick ={() =>addManualData(mainGraph)}>
@@ -253,8 +364,8 @@ const MainGraph = () => {
           <button className = "button-styles" onClick ={() =>setShowAnnotation(!showAnnotation)}>
             Adicionar anotação
           </button>
-          <button className = "button-styles" onClick ={() => realTimeData(mainGraph)}>
-            Dados em tempo real
+          <button className = "button-styles" onClick ={handleSprintTime}>
+            Início e fim da sprint
           </button>
         </div>
       </div>
